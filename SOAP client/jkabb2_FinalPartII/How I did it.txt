@@ -1,0 +1,17 @@
+I ran the wsimport –p client –keep http://www.webservicex.net/FinanceService.asmx?wsdl
+
+I then imported client.FinanceService and client.FinanceServiceSoap
+
+I then added this to the main function:
+
+FinanceService service = new FinanceService();
+	
+FinanceServiceSoap port = service.getFinanceServiceSoap();
+
+I used port.loanMonthlyPayment(amount,interest,months); to run the function
+
+I requested user input for the variables for amount, interest and months
+
+I converted those into doubles and input those into loanMonthlyPayment 
+
+I then output the amount to the console
