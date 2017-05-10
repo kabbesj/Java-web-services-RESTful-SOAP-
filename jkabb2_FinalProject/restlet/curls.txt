@@ -1,11 +1,11 @@
-curl --request GET http://localhost:8080/adages2/
+curl --request GET http://localhost:8080/doctors/
 
-curl --request GET http://localhost:8080/adages2/xml
+curl --request GET http://localhost:8080/doctors/xml
 
-curl --request GET http://localhost:8080/adages2/json
+curl --request GET http://localhost:8080/doctors/json
 
-curl --request GET http://localhost:8080/adages2/xml/2
+curl --request GET http://localhost:8080/doctors/xml/2
 
-curl --request POST --data "words=This is a test" http://localhost:8080/adages2/create
+curl --request POST --data "words=This is a test" http://localhost:8080/doctors/create
 
-curl --request DELETE http://localhost:8080/adages2/delete/6
+curl --request DELETE http://localhost:8080/doctors/delete/6
