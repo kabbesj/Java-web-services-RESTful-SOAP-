@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ajax polling example 1</title>
+    <script type = "text/javascript" 
+	    src  = "http://code.jquery.com/jquery-latest.min.js">
+    </script>
+    <script type = "text/javascript">
+      //var url = 'http://localhost:8080/predictions3/resourcesP/json';
+	  var url = 'http://localhost:8080/places3/resourcesP/json';
+	  var accountInfo = {"who": "Testing Jquery with Rest", "what": "Test", "what1": "Test2" };
+	  
+
+      function displayPreds(preds) {
+         $('#container').empty(); // clear the old list, if any
+         $.each(preds, function(ind, val) { 
+              $('#container').append('<li>' + preds[ind].who + ': ' + 
+	                                      preds[ind].what + " / " + preds[ind].what1 + '</li>'); } );
+      }
+
+	  
+	  
+	  function post() {
+	  
+		var who = document.forms["myForm"]["who"].value;
+		var what = document.forms["myForm"]["what"].value;
+		var what1 = document.forms["myForm"]["what1"].value;
+          $.ajax({
+                   url:         'http://localhost:8080/places3/resourcesP/create',
+                   method:      'POST',
+                   dataType:    'json',
+                   contentType: "application/json; charset=utf-8",
+				   data:		{who:who, what:what, what1:what1}, 			   
+								   });}
+			 
+      function fetch() {
+          $.ajax({
+                   url:         url,
+                   method:      'GET',
+                   dataType:    'json',
+                   contentType: "application/json; charset=utf-8",
+                   cache:       false,
+                   success:     function(res) { displayPreds(res.predictions); },
+                   error:       function(res) { console.log(res); },
+                   complete:    function () {
+                                   setTimeout(function() { fetch() }, 5000)}});
+      }
+		$(document).ready(function(){
+			fetch();
+			//post();
+		});
+		
+		
+      //$(document).ready(fetch); // invoked after DOM is built and loaded
+	  //$(document).ready(post);
+    </script>
+  </head>
+  <body>
+	<form name="myForm" onsubmit="return post()" method="post">
+	<p>City: <input type="text" name="who"></p>
+	<p>POI1: <input type="text" name="what"></p>
+	<p>POI2: <input type="text" name="what1"></p>
+	<input type="submit" value="Submit">
+	</form>
+  
+  
+    <ul id = 'container'></ul>
+	<ul id = 'div'></ul>
+  </body>
+</html>
+
